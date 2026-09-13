@@ -1,0 +1,103 @@
+{
+  "id": 1697653,
+  "title": "Butter Baked Onion - Pure Hygge Food",
+  "image": "https://img.spoonacular.com/recipes/1697653-556x370.jpg",
+  "readyInMinutes": 65,
+  "servings": 75,
+  "healthScore": 0,
+  "vegetarian": false,
+  "vegan": false,
+  "glutenFree": false,
+  "dairyFree": false,
+  "veryHealthy": false,
+  "sourceUrl": "https://maplewoodroad.com/butter-baked-onion/",
+  "creditsText": "maplewoodroad",
+  "nutrition": {
+    "nutrients": [
+      {
+        "name": "Calories",
+        "amount": 2.77,
+        "unit": "kcal",
+        "percentOfDailyNeeds": 0.14
+      },
+      {
+        "name": "Fat",
+        "amount": 0.16,
+        "unit": "g",
+        "percentOfDailyNeeds": 0.24
+      },
+      {
+        "name": "Carbohydrates",
+        "amount": 0.33,
+        "unit": "g",
+        "percentOfDailyNeeds": 0.11
+      },
+      {
+        "name": "Sugar",
+        "amount": 0.22,
+        "unit": "g",
+        "percentOfDailyNeeds": 0.25
+      },
+      {
+        "name": "Protein",
+        "amount": 0.04,
+        "unit": "g",
+        "percentOfDailyNeeds": 0.07
+      }
+    ]
+  },
+  "extendedIngredients": [
+    {
+      "id": 11294,
+      "name": "onion",
+      "nameClean": "onion",
+      "amount": 1,
+      "unit": ""
+    },
+    {
+      "id": 1001,
+      "name": "butter",
+      "nameClean": "butter",
+      "amount": 1,
+      "unit": "Tbsp"
+    },
+    {
+      "id": 6971,
+      "name": "bouillon cube",
+      "nameClean": "bouillon cube",
+      "amount": 0.5,
+      "unit": ""
+    }
+  ],
+  "analyzedInstructions": [
+    {
+      "steps": [
+        {
+          "number": 1,
+          "step": "Cut the bottom off the onion and save for stock"
+        },
+        {
+          "number": 2,
+          "step": "Peel off the papery skin and scoop out the top"
+        },
+        {
+          "number": 3,
+          "step": "Fill the scooped-out part with butter and bouillon/soy/Worcestershire"
+        },
+        {
+          "number": 4,
+          "step": "Wrap in aluminum foil"
+        },
+        {
+          "number": 5,
+          "step": "Bake at 350°F for about 60 minutes or until fork tender"
+        },
+        {
+          "number": 6,
+          "step": "Remove from the oven and serve by itself or as a side dish"
+        }
+      ]
+    }
+  ],
+  "instructions": "Cut the bottom off the onion and save for stock\n\nPeel off the papery skin and scoop out the top\n\nFill the scooped-out part with butter and bouillon/soy/Worcestershire\n\nWrap in aluminum foil\n\nBake at 350°F for about 60 minutes or until fork tender\n\nRemove from the oven and serve by itself or as a side dish"
+}

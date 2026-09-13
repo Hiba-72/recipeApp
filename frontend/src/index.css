@@ -1,0 +1,145 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-ground text-ink font-sans antialiased;
+    margin: 0;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-bold tracking-tight;
+  }
+
+  code {
+    font-family: ui-monospace, Menlo, Monaco, Consolas, "Courier New", monospace;
+  }
+}
+
+@layer components {
+  /* Pill button, primary action. Magenta on blush. */
+  .btn-accent {
+    @apply inline-flex items-center justify-center rounded-full bg-accent px-6 py-3
+           text-sm font-semibold text-white transition-colors hover:bg-accent-ink
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-accent
+           focus-visible:ring-offset-2 focus-visible:ring-offset-ground
+           disabled:cursor-not-allowed disabled:bg-faintest;
+  }
+
+  /* Pill button, secondary. Outlined in ink. */
+  .btn-outline {
+    @apply inline-flex items-center justify-center rounded-full border border-ink
+           bg-transparent px-5 py-3 text-sm font-semibold text-ink transition-colors
+           hover:bg-ink hover:text-ground focus:outline-none focus-visible:ring-2
+           focus-visible:ring-ink focus-visible:ring-offset-2
+           focus-visible:ring-offset-ground;
+  }
+
+  /* Ingredient chip in the picker grid. */
+  .chip {
+    @apply rounded-lg border border-line bg-surface px-4 py-3 text-left text-sm
+           transition-colors hover:border-faintest focus:outline-none
+           focus-visible:ring-2 focus-visible:ring-accent;
+  }
+
+  .chip-selected {
+    @apply border-ink bg-ink font-semibold text-ground hover:border-ink;
+  }
+
+  .card {
+    @apply overflow-hidden rounded-xl border border-line bg-surface;
+  }
+
+  .field {
+    @apply w-full rounded-[10px] border border-line-strong bg-surface px-4 py-3
+           text-[15px] text-ink placeholder-faint focus:border-accent
+           focus:outline-none focus-visible:ring-1 focus-visible:ring-accent;
+  }
+}
+
+@layer utilities {
+  /* The four hex values below are the only ones in the codebase that aren't
+     Tailwind tokens: ::-webkit-slider-thumb and ::-moz-range-thumb are browser
+     pseudo-elements, so no class can reach them. They mirror `accent`
+     (#ae5e46) and a desaturated version of it for the unset state — if the
+     accent token changes, change them too.
+
+     Dual-range slider.
+     Two range inputs sit on top of each other so a single row can express a
+     min and a max. The track has to ignore the pointer or the upper input
+     would swallow every click meant for the lower thumb — only the thumbs
+     themselves stay interactive. */
+  .range-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    width: 100%;
+    height: 20px;
+    background: transparent;
+    pointer-events: none;
+  }
+
+  .range-thumb:focus {
+    outline: none;
+  }
+
+  .range-thumb::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    pointer-events: auto;
+    width: 16px;
+    height: 16px;
+    border-radius: 9999px;
+    background: #fff;
+    border: 2px solid #ae5e46;
+    cursor: grab;
+    margin-top: -6px;
+  }
+
+  .range-thumb::-webkit-slider-thumb:active {
+    cursor: grabbing;
+  }
+
+  .range-thumb::-moz-range-thumb {
+    pointer-events: auto;
+    width: 16px;
+    height: 16px;
+    border-radius: 9999px;
+    background: #fff;
+    border: 2px solid #ae5e46;
+    cursor: grab;
+  }
+
+  .range-thumb::-webkit-slider-runnable-track {
+    height: 4px;
+    background: transparent;
+  }
+
+  .range-thumb::-moz-range-track {
+    height: 4px;
+    background: transparent;
+  }
+
+  /* Keyboard users need to see which thumb has focus. */
+  .range-thumb:focus-visible::-webkit-slider-thumb {
+    box-shadow: 0 0 0 3px rgba(174, 94, 70, 0.25);
+  }
+
+  .range-thumb:focus-visible::-moz-range-thumb {
+    box-shadow: 0 0 0 3px rgba(174, 94, 70, 0.25);
+  }
+
+  /* An untouched macro reads as inactive rather than as a real constraint. */
+  .range-thumb.is-unset::-webkit-slider-thumb {
+    border-color: #c4ab9c;
+  }
+
+  .range-thumb.is-unset::-moz-range-thumb {
+    border-color: #c4ab9c;
+  }
+}

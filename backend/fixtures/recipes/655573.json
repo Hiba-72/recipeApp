@@ -1,0 +1,130 @@
+{
+  "id": 655573,
+  "title": "Penne Arrabiata",
+  "image": "https://img.spoonacular.com/recipes/655573-556x370.jpg",
+  "readyInMinutes": 45,
+  "servings": 4,
+  "healthScore": 92,
+  "vegetarian": true,
+  "vegan": true,
+  "glutenFree": false,
+  "dairyFree": true,
+  "veryHealthy": true,
+  "sourceUrl": "https://www.foodista.com/recipe/2Y82DVJR/penne-arrabiata",
+  "creditsText": "foodista.com",
+  "nutrition": {
+    "nutrients": [
+      {
+        "name": "Calories",
+        "amount": 466.25,
+        "unit": "kcal",
+        "percentOfDailyNeeds": 23.31
+      },
+      {
+        "name": "Fat",
+        "amount": 8.84,
+        "unit": "g",
+        "percentOfDailyNeeds": 13.6
+      },
+      {
+        "name": "Carbohydrates",
+        "amount": 82.47,
+        "unit": "g",
+        "percentOfDailyNeeds": 27.49
+      },
+      {
+        "name": "Sugar",
+        "amount": 7.63,
+        "unit": "g",
+        "percentOfDailyNeeds": 8.48
+      },
+      {
+        "name": "Protein",
+        "amount": 14.51,
+        "unit": "g",
+        "percentOfDailyNeeds": 29.03
+      },
+      {
+        "name": "Fiber",
+        "amount": 5.58,
+        "unit": "g",
+        "percentOfDailyNeeds": 22.33
+      }
+    ]
+  },
+  "extendedIngredients": [
+    {
+      "id": 10011531,
+      "name": "tomato",
+      "nameClean": "tomato",
+      "amount": 14.5,
+      "unit": "oz"
+    },
+    {
+      "id": 10511297,
+      "name": "parsley",
+      "nameClean": "parsley",
+      "amount": 3,
+      "unit": "tablespoons"
+    },
+    {
+      "id": 11215,
+      "name": "garlic",
+      "nameClean": "garlic",
+      "amount": 2,
+      "unit": "Cloves"
+    },
+    {
+      "id": 4053,
+      "name": "olive oil",
+      "nameClean": "olive oil",
+      "amount": 2,
+      "unit": "tablespoons"
+    },
+    {
+      "id": 11120420,
+      "name": "pkt penne",
+      "nameClean": "pkt penne",
+      "amount": 14,
+      "unit": "oz"
+    },
+    {
+      "id": 11821,
+      "name": "peppers",
+      "nameClean": "peppers",
+      "amount": 2,
+      "unit": ""
+    }
+  ],
+  "analyzedInstructions": [
+    {
+      "steps": [
+        {
+          "number": 1,
+          "step": "Bring a large pot of water to a boil."
+        },
+        {
+          "number": 2,
+          "step": "Saute about 1 teaspoon of dried red pepper in a 3 tbsp. olive oil."
+        },
+        {
+          "number": 3,
+          "step": "Add 5 cloves fresh minced garlic, 2 tbsp.Fresh Italian parsley, minced.When these ingredients are not, but not smoking, add 1 can tomatoes, chopped. (I like Pomi tomatoes which comes in a box). Stir, cover and cook untilthe sauce i heated. Cook the Penne in salted boiling water. Cook until al dante."
+        },
+        {
+          "number": 4,
+          "step": "Drain and add to sauce."
+        },
+        {
+          "number": 5,
+          "step": "Mix throughly Just before serving, add some coarsely chopped fresh basil and a little more parsley."
+        },
+        {
+          "number": 6,
+          "step": "Serve immediately."
+        }
+      ]
+    }
+  ],
+  "instructions": "<ol><li>Bring a large pot of water to a boil. Saute about 1 teaspoon of dried red pepper in a 3 tbsp. olive oil. Add 5 cloves fresh minced garlic, 2 tbsp.</li><li>Fresh Italian parsley, minced.</li><li>When these ingredients are not, but not smoking, add 1 can tomatoes, chopped. (I like Pomi tomatoes which comes in a box). Stir, cover and cook untilthe sauce i heated. Cook the Penne in salted boiling water. Cook until al dante. Drain and add to sauce. Mix throughly Just before serving, add some coarsely chopped fresh basil and a little more parsley. Serve immediately.</li></ol>"
+}

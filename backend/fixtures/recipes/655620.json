@@ -1,0 +1,153 @@
+{
+  "id": 655620,
+  "title": "Peperonata - Bell Peppers In Tomato Sauce",
+  "image": "https://img.spoonacular.com/recipes/655620-556x370.jpg",
+  "readyInMinutes": 45,
+  "servings": 4,
+  "healthScore": 1,
+  "vegetarian": false,
+  "vegan": false,
+  "glutenFree": false,
+  "dairyFree": false,
+  "veryHealthy": false,
+  "sourceUrl": "https://www.foodista.com/recipe/4L6H6MGL/peperonata-bell-peppers-in-tomato-sauce",
+  "creditsText": "Foodista.com – The Cooking Encyclopedia Everyone Can Edit",
+  "nutrition": {
+    "nutrients": [
+      {
+        "name": "Calories",
+        "amount": 604.23,
+        "unit": "kcal",
+        "percentOfDailyNeeds": 30.21
+      },
+      {
+        "name": "Fat",
+        "amount": 66.84,
+        "unit": "g",
+        "percentOfDailyNeeds": 102.83
+      },
+      {
+        "name": "Carbohydrates",
+        "amount": 3.17,
+        "unit": "g",
+        "percentOfDailyNeeds": 1.06
+      },
+      {
+        "name": "Sugar",
+        "amount": 1.25,
+        "unit": "g",
+        "percentOfDailyNeeds": 1.39
+      },
+      {
+        "name": "Protein",
+        "amount": 0.42,
+        "unit": "g",
+        "percentOfDailyNeeds": 0.85
+      },
+      {
+        "name": "Fiber",
+        "amount": 0.53,
+        "unit": "g",
+        "percentOfDailyNeeds": 2.11
+      }
+    ]
+  },
+  "extendedIngredients": [
+    {
+      "id": 10011693,
+      "name": "canned tomatoes",
+      "nameClean": "canned tomatoes",
+      "amount": 6,
+      "unit": ""
+    },
+    {
+      "id": 1102047,
+      "name": "canned tomatoes",
+      "nameClean": "canned tomatoes",
+      "amount": 14,
+      "unit": "ounces"
+    },
+    {
+      "id": 4582,
+      "name": "heat the oil in a pot",
+      "nameClean": "heat the oil in a pot",
+      "amount": 1,
+      "unit": "c"
+    },
+    {
+      "id": 1034053,
+      "name": "extra virgin olive oil",
+      "nameClean": "extra virgin olive oil",
+      "amount": 1,
+      "unit": "cup"
+    },
+    {
+      "id": 11215,
+      "name": "garlic",
+      "nameClean": "garlic",
+      "amount": 2,
+      "unit": "cloves"
+    },
+    {
+      "id": 11282,
+      "name": "onion",
+      "nameClean": "onion",
+      "amount": 1,
+      "unit": "medium"
+    },
+    {
+      "id": 1102047,
+      "name": "add the peppers",
+      "nameClean": "add the peppers",
+      "amount": 4,
+      "unit": "servings"
+    },
+    {
+      "id": -1,
+      "name": "can be reheated later. it is a",
+      "nameClean": "can be reheated later. it is a",
+      "amount": 1,
+      "unit": "can"
+    },
+    {
+      "id": -1,
+      "name": "reduce the heat a little",
+      "nameClean": "reduce the heat a little",
+      "amount": 10,
+      "unit": ""
+    },
+    {
+      "id": -1,
+      "name": "can be reheated later. it is a",
+      "nameClean": "can be reheated later. it is a",
+      "amount": 1,
+      "unit": "can"
+    },
+    {
+      "id": -1,
+      "name": "reduce the heat a little",
+      "nameClean": "reduce the heat a little",
+      "amount": 10,
+      "unit": ""
+    }
+  ],
+  "analyzedInstructions": [
+    {
+      "steps": [
+        {
+          "number": 1,
+          "step": "Heat the oil in a large pot, and then add the onion and garlic."
+        },
+        {
+          "number": 2,
+          "step": "Saute them until they get a nice golden color."
+        },
+        {
+          "number": 3,
+          "step": "Add the peppers, and cook over a medium high heat for about 10-15 minutes, stirring occasionally. Next, add the canned or fresh tomatoes to the peppers. Season with salt and pepper to taste.Reduce the heat a little, and let the pepper and onion  mixture continue to cook until the liquid is reduced to a thick sauce.  This will probably take about another 10 minutes more.The peperonata can be served immediately, or can be reheated later. It is a fresh, simple classic. Enjoy!"
+        }
+      ]
+    }
+  ],
+  "instructions": "<ol><li>Heat the oil in a large pot, and then add the onion and garlic.  Saute them until they get a nice golden color.</li><li>Add the peppers, and cook over a medium high heat for about 10-15 minutes, stirring occasionally. Next, add the canned or fresh tomatoes to the peppers. Season with salt and pepper to taste.</li><li>Reduce the heat a little, and let the pepper and onion  mixture continue to cook until the liquid is reduced to a thick sauce.  This will probably take about another 10 minutes more.</li><li>The peperonata can be served immediately, or can be reheated later. It is a fresh, simple classic. Enjoy!</li></ol>"
+}

@@ -1,0 +1,37 @@
+{
+  "name": "taktouka",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "client": "npm start --prefix frontend",
+    "server": "node backend/server.js",
+    "test": "npm test --prefix frontend -- --watchAll=false",
+    "seed": "npm run seed --prefix backend",
+    "db": "docker compose up -d",
+    "install:all": "npm install && npm install --prefix backend && npm install --prefix frontend",
+    "build": "npm run install:all && npm run build --prefix frontend",
+    "serve": "node backend/server.js"
+  },
+  "keywords": [
+    "recipes",
+    "react",
+    "express",
+    "mongodb",
+    "spoonacular",
+    "meal-planning"
+  ],
+  "author": "Hiba El Fachtali",
+  "license": "MIT",
+  "description": "Tells you what you can cook tonight, from what is already in your fridge. React + Express + MongoDB, with a quota-aware Spoonacular proxy.",
+  "dependencies": {
+    "concurrently": "^9.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Hiba-72/recipeApp.git"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

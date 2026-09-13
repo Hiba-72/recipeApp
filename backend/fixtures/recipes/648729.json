@@ -1,0 +1,112 @@
+{
+  "id": 648729,
+  "title": "Kale With Red Onion",
+  "image": "https://img.spoonacular.com/recipes/648729-556x370.jpg",
+  "readyInMinutes": 45,
+  "servings": 8,
+  "healthScore": 30,
+  "vegetarian": true,
+  "vegan": true,
+  "glutenFree": true,
+  "dairyFree": true,
+  "veryHealthy": false,
+  "sourceUrl": "https://www.foodista.com/recipe/XM62FP2Y/kale-with-red-onion",
+  "creditsText": "Foodista.com – The Cooking Encyclopedia Everyone Can Edit",
+  "nutrition": {
+    "nutrients": [
+      {
+        "name": "Calories",
+        "amount": 25.02,
+        "unit": "kcal",
+        "percentOfDailyNeeds": 1.25
+      },
+      {
+        "name": "Fat",
+        "amount": 2,
+        "unit": "g",
+        "percentOfDailyNeeds": 3.08
+      },
+      {
+        "name": "Carbohydrates",
+        "amount": 1.61,
+        "unit": "g",
+        "percentOfDailyNeeds": 0.54
+      },
+      {
+        "name": "Sugar",
+        "amount": 0.43,
+        "unit": "g",
+        "percentOfDailyNeeds": 0.48
+      },
+      {
+        "name": "Protein",
+        "amount": 0.6,
+        "unit": "g",
+        "percentOfDailyNeeds": 1.2
+      },
+      {
+        "name": "Fiber",
+        "amount": 0.8,
+        "unit": "g",
+        "percentOfDailyNeeds": 3.2
+      }
+    ]
+  },
+  "extendedIngredients": [
+    {
+      "id": 11233,
+      "name": "kale",
+      "nameClean": "kale",
+      "amount": 1,
+      "unit": "large bunch"
+    },
+    {
+      "id": 10011282,
+      "name": "onion",
+      "nameClean": "onion",
+      "amount": 0.5,
+      "unit": ""
+    },
+    {
+      "id": 4053,
+      "name": "olive oil",
+      "nameClean": "olive oil",
+      "amount": 1,
+      "unit": "Tbsp"
+    },
+    {
+      "id": 11215,
+      "name": "garlic",
+      "nameClean": "garlic",
+      "amount": 2,
+      "unit": "cloves"
+    }
+  ],
+  "analyzedInstructions": [
+    {
+      "steps": [
+        {
+          "number": 1,
+          "step": "In a cast iron pan, over medium low heat, heat olive oil, garlic and onion until vegetables are soft"
+        },
+        {
+          "number": 2,
+          "step": "Add washed, chopped kale (keeping water clinging to leaves to create steam)"
+        },
+        {
+          "number": 3,
+          "step": "Cover immediately and allow to steam for 3-5 minutes"
+        },
+        {
+          "number": 4,
+          "step": "Remove cover, stir and turn off heat"
+        },
+        {
+          "number": 5,
+          "step": "Serve with Balsamic vinegar"
+        }
+      ]
+    }
+  ],
+  "instructions": "In a cast iron pan, over medium low heat, heat olive oil, garlic and onion until vegetables are soft\nAdd washed, chopped kale (keeping water clinging to leaves to create steam)\nCover immediately and allow to steam for 3-5 minutes\nRemove cover, stir and turn off heat\nServe with Balsamic vinegar"
+}

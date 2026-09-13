@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+/.pnp
+.pnp.js
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build files
+/build
+/dist
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS specific files
+.DS_Store
+Thumbs.db
+# Any local env file, whatever the suffix — .env.tmp and friends are just as
+# sensitive as .env itself. The tracked templates stay.
+.env*
+!.env.example
+
+# Agent/editor scratch — none of this is currently in the repo, but it lands
+# here by default if the tooling is ever run with project-local settings.
+.claude/
+.claude.json
+CLAUDE.local.md
+*.log
+logs/
+!.env.production

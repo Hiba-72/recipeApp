@@ -1,0 +1,126 @@
+{
+  "id": 636207,
+  "title": "Broccoli Rabe and Breaded Veal Scallopini",
+  "image": "https://img.spoonacular.com/recipes/636207-556x370.jpg",
+  "readyInMinutes": 45,
+  "servings": 4,
+  "healthScore": 14,
+  "vegetarian": true,
+  "vegan": false,
+  "glutenFree": true,
+  "dairyFree": false,
+  "veryHealthy": false,
+  "sourceUrl": "https://www.foodista.com/recipe/HFWC2HTR/broccoli-rabe-and-breaded-veal-scallopini",
+  "creditsText": "Foodista.com – The Cooking Encyclopedia Everyone Can Edit",
+  "nutrition": {
+    "nutrients": [
+      {
+        "name": "Calories",
+        "amount": 224.18,
+        "unit": "kcal",
+        "percentOfDailyNeeds": 11.21
+      },
+      {
+        "name": "Fat",
+        "amount": 21.35,
+        "unit": "g",
+        "percentOfDailyNeeds": 32.85
+      },
+      {
+        "name": "Carbohydrates",
+        "amount": 5.28,
+        "unit": "g",
+        "percentOfDailyNeeds": 1.76
+      },
+      {
+        "name": "Sugar",
+        "amount": 1.26,
+        "unit": "g",
+        "percentOfDailyNeeds": 1.4
+      },
+      {
+        "name": "Protein",
+        "amount": 5.6,
+        "unit": "g",
+        "percentOfDailyNeeds": 11.2
+      },
+      {
+        "name": "Fiber",
+        "amount": 3.67,
+        "unit": "g",
+        "percentOfDailyNeeds": 14.69
+      }
+    ]
+  },
+  "extendedIngredients": [
+    {
+      "id": 11096,
+      "name": "broccoli rabe",
+      "nameClean": "broccoli rabe",
+      "amount": 500,
+      "unit": "g"
+    },
+    {
+      "id": 1001,
+      "name": "butter",
+      "nameClean": "butter",
+      "amount": 2,
+      "unit": "tablespoons"
+    },
+    {
+      "id": 1123,
+      "name": "egg",
+      "nameClean": "egg",
+      "amount": 1,
+      "unit": ""
+    },
+    {
+      "id": 4053,
+      "name": "olive oil",
+      "nameClean": "olive oil",
+      "amount": 4,
+      "unit": "servings"
+    },
+    {
+      "id": 1102047,
+      "name": "salt and pepper",
+      "nameClean": "salt and pepper",
+      "amount": 4,
+      "unit": "servings"
+    },
+    {
+      "id": 10511282,
+      "name": "onion",
+      "nameClean": "onion",
+      "amount": 1,
+      "unit": "small"
+    }
+  ],
+  "analyzedInstructions": [
+    {
+      "steps": [
+        {
+          "number": 1,
+          "step": "Wash and steam the broccoli rabe for a few minutes (3 or"
+        },
+        {
+          "number": 2,
+          "step": "in a pressure cooker.Thinly slice the onion. Peel the garlic clove, cut in half and remove the stem."
+        },
+        {
+          "number": 3,
+          "step": "Heat up 1 or 2 tbsp olive oil in a deep pan.Saut the onion and garlic for a few minutes on medium heat until translucent."
+        },
+        {
+          "number": 4,
+          "step": "Add the broccoli rabe, close with a lid and cook for a few minutes."
+        },
+        {
+          "number": 5,
+          "step": "Cut the tomatoes in 4 or 8 wedges depending on their size, add to the pan and cook several more minutes.Season with salt and pepper and serve.Proceed as follows with each scalopini:Season with salt and pepper.Dip in beaten egg.Dip in bread crumb and cover evenly.Pan fry in a good amount of butter (add more butter before flipping as the bread crumb will absorb it), 1 or 2 minutes on each side over high heat."
+        }
+      ]
+    }
+  ],
+  "instructions": "<ol><li>Wash and steam the broccoli rabe for a few minutes (3 or 4) in a pressure cooker.</li><li>Thinly slice the onion. Peel the garlic clove, cut in half and remove the stem.</li><li>Heat up 1 or 2 tbsp olive oil in a deep pan.</li><li>Saut the onion and garlic for a few minutes on medium heat until translucent.</li><li>Add the broccoli rabe, close with a lid and cook for a few minutes.</li><li>Cut the tomatoes in 4 or 8 wedges depending on their size, add to the pan and cook several more minutes.</li><li>Season with salt and pepper and serve.</li><li>Proceed as follows with each scalopini:</li><li>Season with salt and pepper.</li><li>Dip in beaten egg.</li><li>Dip in bread crumb and cover evenly.</li><li>Pan fry in a good amount of butter (add more butter before flipping as the bread crumb will absorb it), 1 or 2 minutes on each side over high heat.</li></ol>"
+}
