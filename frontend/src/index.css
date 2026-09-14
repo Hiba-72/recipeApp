@@ -20,7 +20,7 @@
 }
 
 @layer components {
-  /* Pill button, primary action. Magenta on blush. */
+  /* Pill button, primary action. Terracotta on blush. */
   .btn-accent {
     @apply inline-flex items-center justify-center rounded-full bg-accent px-6 py-3
            text-sm font-semibold text-white transition-colors hover:bg-accent-ink
@@ -103,7 +103,7 @@
     background: #fff;
     border: 2px solid #ae5e46;
     cursor: grab;
-    margin-top: -6px;
+    margin-top: 2px; /* (20 - 16) / 2 */
   }
 
   .range-thumb::-webkit-slider-thumb:active {
@@ -120,13 +120,19 @@
     cursor: grab;
   }
 
+  /* Full height, not 4px. The visible track is a separate painted div; this
+     one only exists to position the thumb. Browsers disagree about where a
+     short track sits inside a taller input — centred in some, top-aligned in
+     others — and that disagreement put the thumbs 13px above the line on
+     Android. At 100% the track top is 0 everywhere, so the thumb offset below
+     is simply half the leftover space. */
   .range-thumb::-webkit-slider-runnable-track {
-    height: 4px;
+    height: 100%;
     background: transparent;
   }
 
   .range-thumb::-moz-range-track {
-    height: 4px;
+    height: 100%;
     background: transparent;
   }
 
@@ -144,10 +150,9 @@
      grabs the wrong one. Touch devices get 26px, which clears the usual 24px
      minimum, without inflating the control for mouse users. */
   @media (pointer: coarse) {
-    /* Centred rather than pinned to the top: the input grows past its 20px
-       container, and the browser puts its internal track down the middle of
-       the input. Left at top:0 the thumb would sit 5px below the painted
-       track. The overflow is harmless — the row has gap to spare. */
+    /* The input grows past its 20px container, so centre it: its midline then
+       still coincides with the painted track. The 5px of overflow top and
+       bottom is harmless — the row has gap to spare. */
     .range-thumb {
       height: 30px;
       top: 50%;
@@ -157,7 +162,7 @@
     .range-thumb::-webkit-slider-thumb {
       width: 26px;
       height: 26px;
-      margin-top: -11px;
+      margin-top: 2px; /* (30 - 26) / 2 */
     }
 
     .range-thumb::-moz-range-thumb {

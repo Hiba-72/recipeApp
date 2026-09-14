@@ -1,6 +1,5 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { usePantry } from "../context/PantryContext";
 import Logo from "./Logo";
 
 const linkBase =
@@ -13,8 +12,6 @@ function navClass({ isActive }) {
 }
 
 export default function Navbar() {
-  const { favorites } = usePantry();
-
   return (
     <nav className="bg-ink">
       <div className="flex h-[62px] items-center gap-6 px-5 sm:gap-9 sm:px-10">
@@ -32,18 +29,14 @@ export default function Navbar() {
           </span>
         </NavLink>
 
+        {/* No "Suggestions" link: the logo already goes there, and on a phone
+            the four links plus the wordmark left nothing room to breathe. */}
         <div className="flex flex-1 items-center gap-5 overflow-x-auto sm:gap-6">
-          <NavLink to="/" end className={navClass}>
-            Suggestions
-          </NavLink>
           <NavLink to="/pantry" className={navClass}>
             Pantry
           </NavLink>
           <NavLink to="/favorites" className={navClass}>
-            Favorites{" "}
-            {favorites.length > 0 && (
-              <span className="opacity-70">{favorites.length}</span>
-            )}
+            Favorites
           </NavLink>
           <NavLink to="/preferences" className={navClass}>
             Preferences
