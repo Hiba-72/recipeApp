@@ -31,7 +31,7 @@ function MacroTile({ result }) {
   );
 }
 
-export default function RecipeCard({ recipe, macros }) {
+export default function RecipeCard({ recipe, macros, onRemove }) {
   const navigate = useNavigate();
   const missing = missingNames(recipe);
   const calories = evaluateMacro(recipe, "calories", macros);
@@ -54,8 +54,25 @@ export default function RecipeCard({ recipe, macros }) {
           open();
         }
       }}
-      className="card group flex h-full cursor-pointer flex-col text-left transition-shadow hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+      className="card group relative flex h-full cursor-pointer flex-col text-left transition-shadow hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
     >
+      {/* Only the favourites grid passes this. stopPropagation matters: the
+          whole card is a click target, so without it removing a recipe would
+          also navigate to the recipe you just removed. */}
+      {onRemove && (
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            onRemove(recipe.id);
+          }}
+          aria-label={`Remove ${recipe.title} from saved recipes`}
+          className="absolute right-2.5 top-2.5 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-ink/55 text-[15px] leading-none text-white backdrop-blur-sm transition-colors hover:bg-ink focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+        >
+          ✕
+        </button>
+      )}
+
       {/* Fixed height, never flexed: the photo is the one element that must be
           identical on every card, or the grid reads as ragged. */}
       {recipe.image ? (

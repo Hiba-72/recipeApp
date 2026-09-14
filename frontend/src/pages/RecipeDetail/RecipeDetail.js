@@ -4,6 +4,7 @@ import { useLocation, useNavigate, Link } from "react-router-dom";
 import DOMPurify from "dompurify";
 import { fetchRecipeDetails } from "../../redux/slices/recipeDetailsSlice";
 import { usePantry } from "../../context/PantryContext";
+import { inPantry, pantryIndex, splitByPantry } from "../../lib/pantryMatch";
 
 // The four that drive the rest of the app, then the two people look for next.
 const NUTRIENTS = [
@@ -22,32 +23,6 @@ const DIET_FLAGS = [
   { key: "dairyFree", label: "Dairy-free" },
   { key: "veryHealthy", label: "Very healthy" },
 ];
-
-/** Loose enough to survive "Tomato" vs "tomatoes", strict enough to be useful. */
-function normalise(name) {
-  return String(name || "")
-    .toLowerCase()
-    .replace(/[^a-z\s]/g, "")
-    .replace(/\s+/g, " ")
-    .trim()
-    .replace(/(es|s)$/, "");
-}
-
-/**
- * Is this recipe ingredient already in the fridge?
- *
- * Substring in both directions on purpose: the fridge says "Olive Oil" where
- * the recipe says "extra virgin olive oil", and "Chicken Breast" where the
- * recipe just says "chicken". Neither would match on equality alone.
- */
-function inPantry(ingredientName, pantrySet) {
-  const target = normalise(ingredientName);
-  if (!target) return false;
-  for (const owned of pantrySet) {
-    if (target.includes(owned) || owned.includes(target)) return true;
-  }
-  return false;
-}
 
 function Skeleton() {
   return (
@@ -107,10 +82,7 @@ export default function RecipeDetail() {
     window.scrollTo(0, 0);
   }, [recipeId]);
 
-  const pantrySet = useMemo(
-    () => new Set(pantry.map(normalise).filter(Boolean)),
-    [pantry]
-  );
+  const pantrySet = useMemo(() => pantryIndex(pantry), [pantry]);
 
   // Memoised so the fallback [] isn't a fresh array on every render, which
   // would re-split have/need each time.
@@ -119,14 +91,10 @@ export default function RecipeDetail() {
     [recipeDetails]
   );
 
-  const { have, need } = useMemo(() => {
-    const h = [];
-    const n = [];
-    for (const item of ingredients) {
-      (inPantry(item.nameClean || item.name, pantrySet) ? h : n).push(item);
-    }
-    return { have: h, need: n };
-  }, [ingredients, pantrySet]);
+  const { have, need } = useMemo(
+    () => splitByPantry(ingredients, pantrySet),
+    [ingredients, pantrySet]
+  );
 
   // The slice holds whichever recipe was opened last, so a fresh fetch would
   // otherwise flash the previous recipe under the new one's title.

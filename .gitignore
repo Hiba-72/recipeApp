@@ -29,15 +29,12 @@ yarn-error.log*
 .DS_Store
 Thumbs.db
 # Any local env file, whatever the suffix — .env.tmp and friends are just as
-# sensitive as .env itself. The tracked templates stay.
+# sensitive as .env itself. The tracked templates and the production build
+# settings stay.
 .env*
 !.env.example
+!.env.production
 
-# Agent/editor scratch — none of this is currently in the repo, but it lands
-# here by default if the tooling is ever run with project-local settings.
-.claude/
-.claude.json
-CLAUDE.local.md
+# Editor and tooling scratch
 *.log
 logs/
-!.env.production

@@ -53,9 +53,14 @@
     @apply overflow-hidden rounded-xl border border-line bg-surface;
   }
 
+  /* 16px, not 15. Below 16px, iOS Safari zooms the whole page in when a field
+     takes focus and never zooms back out — so the first tap on the ingredient
+     search would leave you on a cropped, sideways-scrolled layout. iPads do it
+     too, which is why this isn't behind a width breakpoint: the trigger is the
+     font size, so the fix is simply never to go under 16px. */
   .field {
     @apply w-full rounded-[10px] border border-line-strong bg-surface px-4 py-3
-           text-[15px] text-ink placeholder-faint focus:border-accent
+           text-base text-ink placeholder-faint focus:border-accent
            focus:outline-none focus-visible:ring-1 focus-visible:ring-accent;
   }
 }
@@ -132,6 +137,33 @@
 
   .range-thumb:focus-visible::-moz-range-thumb {
     box-shadow: 0 0 0 3px rgba(174, 94, 70, 0.25);
+  }
+
+  /* A 16px thumb is a comfortable mouse target and a poor finger one — and
+     these sliders have two thumbs that meet in the middle, so a near-miss
+     grabs the wrong one. Touch devices get 26px, which clears the usual 24px
+     minimum, without inflating the control for mouse users. */
+  @media (pointer: coarse) {
+    /* Centred rather than pinned to the top: the input grows past its 20px
+       container, and the browser puts its internal track down the middle of
+       the input. Left at top:0 the thumb would sit 5px below the painted
+       track. The overflow is harmless — the row has gap to spare. */
+    .range-thumb {
+      height: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .range-thumb::-webkit-slider-thumb {
+      width: 26px;
+      height: 26px;
+      margin-top: -11px;
+    }
+
+    .range-thumb::-moz-range-thumb {
+      width: 26px;
+      height: 26px;
+    }
   }
 
   /* An untouched macro reads as inactive rather than as a real constraint. */

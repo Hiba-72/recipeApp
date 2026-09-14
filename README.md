@@ -18,6 +18,8 @@ every visit opens on recipes ranked by how little you're missing.
 - **Ranked by what you're missing.** Not the API's ordering — see the note below.
 - **297-ingredient catalogue**, including a Moroccan section (preserved lemon,
   harissa, ras el hanout, smen) that general recipe apps tend to skip.
+- **Saved recipes**, kept as ids and re-fetched on demand — so a recipe you saved
+  last month shows today's nutrition against today's fridge, not a stale copy.
 
 ## Tech stack
 
@@ -160,18 +162,19 @@ A few decisions that aren't obvious from the code:
 
 ## Decisions
 
-- **No user accounts, deliberately.** The app's promise is that you save your fridge
-  once and land straight on results — a sign-up wall would sit in front of the one
-  thing it does well. State lives in `localStorage`, which delivers that with no
-  credential surface to get wrong. The trade is no cross-device sync; worth it here.
 - **The catalogue is a fixed seed file, not user-editable over HTTP.** Ingredient
   names are the join key to the recipe API, so uncontrolled entries would quietly
   degrade every future search.
 
+## On phones
+
+Built to be used one-handed on a phone browser, not just to survive being opened on
+one: layouts reflow rather than scroll sideways, inputs are 16px so iOS doesn't zoom
+in on focus, the macro sliders get larger thumbs on touch devices, and the onboarding
+bar clears the iPhone home indicator.
+
 ## Known gaps
 
-- `/favorites` is a placeholder — saving works and persists, the listing screen
-  doesn't exist yet.
 - The response cache is in-process, so it resets on restart and isn't shared across
   instances. Redis would be the next step if this ever ran on more than one dyno.
 - Express 4 carries a moderate `qs` advisory; clearing it means the Express 5

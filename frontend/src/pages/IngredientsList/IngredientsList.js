@@ -227,7 +227,7 @@ export default function IngredientsList() {
 
         <div className="px-6 pt-8 sm:px-[68px]">{grid}</div>
 
-        <div className="fixed inset-x-0 bottom-0 z-30 flex flex-wrap items-center gap-4 bg-ink px-6 py-4 sm:px-[68px]">
+        <div className="fixed inset-x-0 bottom-0 z-30 flex flex-wrap items-center gap-4 bg-ink px-6 py-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:px-[68px]">
           <div className="whitespace-nowrap text-[13px] font-semibold text-ground">
             In your fridge{" "}
             <span className="ml-1.5 inline-block rounded-full bg-accent px-2 py-0.5">
@@ -235,7 +235,11 @@ export default function IngredientsList() {
             </span>
           </div>
 
-          <div className="flex max-h-16 flex-1 flex-wrap gap-1.5 overflow-y-auto">
+          {/* Hidden on phones. Wrapped onto its own line it made this fixed bar
+              tall enough to cover the grid behind it, and the count beside it
+              already says how many you have — the chips above are where you'd
+              deselect anyway. */}
+          <div className="hidden max-h-16 flex-1 flex-wrap gap-1.5 overflow-y-auto sm:flex">
             {draftPantry.slice(-8).map((name) => (
               <button
                 key={name}
@@ -248,7 +252,7 @@ export default function IngredientsList() {
             ))}
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="ml-auto flex items-center gap-4">
             <span className="hidden text-xs text-ground/60 sm:inline">
               Saved as you go
             </span>
@@ -258,9 +262,20 @@ export default function IngredientsList() {
               onClick={() => navigate("/welcome/macros")}
               className="btn-accent"
             >
-              {draftPantry.length === 0
-                ? "Pick at least one"
-                : `Next: your macros → (${draftPantry.length})`}
+              {draftPantry.length === 0 ? (
+                "Pick at least one"
+              ) : (
+                <>
+                  {/* The full label plus the counter is wider than a phone can
+                      spare next to the count on its left. */}
+                  <span className="sm:hidden">
+                    Next ({draftPantry.length})
+                  </span>
+                  <span className="hidden sm:inline">
+                    Next: your macros → ({draftPantry.length})
+                  </span>
+                </>
+              )}
             </button>
           </div>
         </div>

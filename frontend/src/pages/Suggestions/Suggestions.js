@@ -82,9 +82,9 @@ export default function Suggestions() {
 
   return (
     <main className="pb-12">
-      <header className="flex flex-wrap items-end justify-between gap-6 px-5 pt-8 sm:px-10">
+      <header className="flex flex-wrap items-start justify-between gap-5 px-5 pt-8 sm:items-end sm:gap-6 sm:px-10">
         <div>
-          <h1 className="mb-2 text-[36px] leading-[1.1] tracking-[-.03em]">
+          <h1 className="mb-2 text-[28px] leading-[1.1] tracking-[-.03em] sm:text-[36px]">
             Tonight you can cook
           </h1>
           <p className="text-sm text-muted">
@@ -100,8 +100,11 @@ export default function Suggestions() {
           </p>
         </div>
 
-        <div className="flex flex-col items-end gap-3">
-          <div className="flex items-center gap-3">
+        {/* Full width and left-aligned on a phone: right-aligning a block that
+            already fills the row just makes the ragged edge land on the wrong
+            side. It only becomes a right-hand column once there's room. */}
+        <div className="flex w-full flex-col items-start gap-3 sm:w-auto sm:items-end">
+          <div className="flex flex-wrap items-center gap-3">
             {/* The target itself now lives on the preferences screen — this
                 button is all that stands in for the old summary card. */}
             <Link to="/preferences" className="btn-outline !py-2.5 !text-[13px]">
@@ -120,7 +123,9 @@ export default function Suggestions() {
             )}
           </div>
 
-          <div className="flex items-center gap-2">
+          {/* Three sort pills plus their label need ~444px; a phone gives 375.
+              Wrapping is what keeps the whole page from scrolling sideways. */}
+          <div className="flex flex-wrap items-center gap-2">
             <span className="text-[12.5px] text-muted-2">Sort</span>
             {Object.entries(SORTS).map(([key, label]) => {
               // Sorting by target is meaningless with no target set.
