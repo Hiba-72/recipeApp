@@ -5,10 +5,15 @@ import FridgeStrip from "./FridgeStrip";
 import { usePantry } from "../context/PantryContext";
 
 /**
- * Chrome shared by every signed-in screen. Onboarding renders outside this,
- * deliberately — it has no navbar and no fridge to summarise yet.
+ * Chrome shared by every screen that has a fridge behind it. Onboarding and
+ * the landing page render outside this, deliberately — neither has a navbar
+ * or a fridge to summarise yet.
+ *
+ * Takes `children` as well as an <Outlet/> so it can be used directly by the
+ * "/" gate, which picks between the landing page and the app and therefore
+ * cannot be expressed as a parent route.
  */
-export default function Layout() {
+export default function Layout({ children }) {
   const { storageBlocked } = usePantry();
 
   return (
@@ -23,7 +28,7 @@ export default function Layout() {
         </div>
       )}
 
-      <Outlet />
+      {children ?? <Outlet />}
     </div>
   );
 }
