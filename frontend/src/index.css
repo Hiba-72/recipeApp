@@ -20,7 +20,7 @@
 }
 
 @layer components {
-  /* Pill button, primary action. Terracotta on blush. */
+  /* Pill button, primary action. Terracotta on bone. */
   .btn-accent {
     @apply inline-flex items-center justify-center rounded-full bg-accent px-6 py-3
            text-sm font-semibold text-white transition-colors hover:bg-accent-ink
@@ -66,26 +66,38 @@
 }
 
 @layer utilities {
-  /* The four hex values below are the only ones in the codebase that aren't
-     Tailwind tokens: ::-webkit-slider-thumb and ::-moz-range-thumb are browser
-     pseudo-elements, so no class can reach them. They mirror `accent`
-     (#ae5e46) and a desaturated version of it for the unset state — if the
-     accent token changes, change them too.
+  /* Dual-range slider.
+     ------------------------------------------------------------------
+     Two range inputs stacked so one row can express a min and a max.
 
-     Dual-range slider.
-     Two range inputs sit on top of each other so a single row can express a
-     min and a max. The track has to ignore the pointer or the upper input
-     would swallow every click meant for the lower thumb — only the thumbs
-     themselves stay interactive. */
+     The rule that makes this stable: the thumb, the runnable track and the
+     input are all exactly --thumb tall. Earlier versions gave the input a
+     fixed height and nudged the thumb with a margin-top, which meant the
+     result depended on where each browser decides a short track sits inside
+     a taller input — centred in some, top-aligned in others. Android put the
+     thumbs well above the line. With zero leftover space there is nothing to
+     distribute and nothing to disagree about, so margin-top is 0 everywhere.
+
+     box-sizing is set explicitly because Tailwind's preflight only reaches
+     `*, ::before, ::after` — a browser pseudo-element is not matched by it,
+     so without this the border would be added outside the declared width.
+
+     The painted track lives in the markup, not here, because it has to be
+     inset by half a thumb at each end to line up with where the browser
+     actually parks the thumb. */
   .range-thumb {
     -webkit-appearance: none;
     appearance: none;
     position: absolute;
     inset-inline: 0;
-    top: 0;
+    top: 50%;
+    transform: translateY(-50%);
     width: 100%;
-    height: 20px;
+    height: var(--thumb);
+    margin: 0;
     background: transparent;
+    /* The track must ignore the pointer or the upper input would swallow
+       every press meant for the lower thumb. Only the thumbs stay live. */
     pointer-events: none;
   }
 
@@ -93,90 +105,67 @@
     outline: none;
   }
 
+  .range-thumb::-webkit-slider-runnable-track {
+    height: 100%;
+    background: transparent;
+    border: none;
+  }
+
+  .range-thumb::-moz-range-track {
+    height: 100%;
+    background: transparent;
+    border: none;
+  }
+
   .range-thumb::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
+    box-sizing: border-box;
     pointer-events: auto;
-    width: 16px;
-    height: 16px;
+    width: var(--thumb);
+    height: var(--thumb);
+    margin-top: 0;
     border-radius: 9999px;
     background: #fff;
     border: 2px solid #ae5e46;
+    box-shadow: 0 1px 2px rgba(35, 32, 29, 0.18);
     cursor: grab;
-    margin-top: 2px; /* (20 - 16) / 2 */
+  }
+
+  .range-thumb::-moz-range-thumb {
+    box-sizing: border-box;
+    pointer-events: auto;
+    width: var(--thumb);
+    height: var(--thumb);
+    border-radius: 9999px;
+    background: #fff;
+    border: 2px solid #ae5e46;
+    box-shadow: 0 1px 2px rgba(35, 32, 29, 0.18);
+    cursor: grab;
   }
 
   .range-thumb::-webkit-slider-thumb:active {
     cursor: grabbing;
   }
 
-  .range-thumb::-moz-range-thumb {
-    pointer-events: auto;
-    width: 16px;
-    height: 16px;
-    border-radius: 9999px;
-    background: #fff;
-    border: 2px solid #ae5e46;
-    cursor: grab;
-  }
-
-  /* Full height, not 4px. The visible track is a separate painted div; this
-     one only exists to position the thumb. Browsers disagree about where a
-     short track sits inside a taller input — centred in some, top-aligned in
-     others — and that disagreement put the thumbs 13px above the line on
-     Android. At 100% the track top is 0 everywhere, so the thumb offset below
-     is simply half the leftover space. */
-  .range-thumb::-webkit-slider-runnable-track {
-    height: 100%;
-    background: transparent;
-  }
-
-  .range-thumb::-moz-range-track {
-    height: 100%;
-    background: transparent;
-  }
-
   /* Keyboard users need to see which thumb has focus. */
   .range-thumb:focus-visible::-webkit-slider-thumb {
-    box-shadow: 0 0 0 3px rgba(174, 94, 70, 0.25);
+    box-shadow: 0 0 0 3px rgba(174, 94, 70, 0.3);
   }
 
   .range-thumb:focus-visible::-moz-range-thumb {
-    box-shadow: 0 0 0 3px rgba(174, 94, 70, 0.25);
+    box-shadow: 0 0 0 3px rgba(174, 94, 70, 0.3);
   }
 
-  /* A 16px thumb is a comfortable mouse target and a poor finger one — and
-     these sliders have two thumbs that meet in the middle, so a near-miss
-     grabs the wrong one. Touch devices get 26px, which clears the usual 24px
-     minimum, without inflating the control for mouse users. */
-  @media (pointer: coarse) {
-    /* The input grows past its 20px container, so centre it: its midline then
-       still coincides with the painted track. The 5px of overflow top and
-       bottom is harmless — the row has gap to spare. */
-    .range-thumb {
-      height: 30px;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
-    .range-thumb::-webkit-slider-thumb {
-      width: 26px;
-      height: 26px;
-      margin-top: 2px; /* (30 - 26) / 2 */
-    }
-
-    .range-thumb::-moz-range-thumb {
-      width: 26px;
-      height: 26px;
-    }
-  }
-
-  /* An untouched macro reads as inactive rather than as a real constraint. */
+  /* An untouched macro reads as inactive rather than as a real constraint.
+     The two hex values here and the accent above are the only colours in the
+     codebase that aren't Tailwind tokens — no class can reach a browser
+     pseudo-element. They mirror `accent`; change them together. */
   .range-thumb.is-unset::-webkit-slider-thumb {
-    border-color: #c4ab9c;
+    border-color: #c2bab0;
   }
 
   .range-thumb.is-unset::-moz-range-thumb {
-    border-color: #c4ab9c;
+    border-color: #c2bab0;
   }
 }

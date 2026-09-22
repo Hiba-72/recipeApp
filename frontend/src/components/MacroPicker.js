@@ -27,9 +27,12 @@ function describeRange(key, range) {
 function MacroRow({ macroKey, range, onChange }) {
   const limit = MACRO_LIMITS[macroKey];
   const unset = isMacroUnset(macroKey, range);
+  // Unitless 0–1 fractions, not percentages: they're multiplied by a calc()
+  // expression that already mixes % and px, and CSS can't take a percentage
+  // of a percentage.
   const span = limit.max - limit.min;
-  const leftPct = ((range.min - limit.min) / span) * 100;
-  const rightPct = ((range.max - limit.min) / span) * 100;
+  const minFrac = (range.min - limit.min) / span;
+  const maxFrac = (range.max - limit.min) / span;
 
   const setMin = (value) =>
     onChange({ ...range, min: Math.min(Number(value), range.max) });
@@ -46,19 +49,43 @@ function MacroRow({ macroKey, range, onChange }) {
         {limit.label}
       </span>
 
-      <div className="relative h-5 flex-1">
-        {/* Decorative track and the selected span. */}
-        <div className="absolute inset-x-0 top-2 h-1 rounded-sm bg-track" />
+      {/* w-full rather than flex-1: on mobile this row is a flex column, where
+          flex-1 would resolve against the cross axis and collapse the track.
+          --thumb is the single source of truth for the handle size — the CSS
+          sizes the input, the runnable track and the thumb from it, and the
+          insets below keep the painted bar under the handle.
+
+          The handle is deliberately larger on touch: 16px is under every
+          mobile hit-target guideline, and this is a control you drag. */}
+      <div
+        className="relative h-7 w-full [--thumb:26px] sm:h-5 sm:flex-1 sm:[--thumb:18px]"
+      >
+        {/* Inset by half a handle at each end. A native range parks its thumb
+            centre between thumb/2 and width - thumb/2, so a bar drawn edge to
+            edge drifts from the handle by up to half its width at the
+            extremes — which reads as the handle sitting off the line. */}
         <div
-          className={`absolute top-2 h-1 rounded-sm ${
+          className="absolute top-1/2 h-1 -translate-y-1/2 rounded-sm bg-track"
+          style={{
+            left: "calc(var(--thumb) / 2)",
+            right: "calc(var(--thumb) / 2)",
+          }}
+        />
+        <div
+          className={`absolute top-1/2 h-1 -translate-y-1/2 rounded-sm ${
             unset ? "bg-track-unset" : "bg-accent"
           }`}
-          style={{ left: `${leftPct}%`, width: `${rightPct - leftPct}%` }}
+          style={{
+            left: `calc(${minFrac} * (100% - var(--thumb)) + var(--thumb) / 2)`,
+            width: `calc(${maxFrac - minFrac} * (100% - var(--thumb)))`,
+          }}
         />
         <input
           type="range"
           className={`range-thumb ${unset ? "is-unset" : ""}`}
-          style={{ zIndex: 3 }}
+          // Whichever handle is nearer the top end sits above the other, so a
+          // pair that has met at one end can still be pulled apart.
+          style={{ zIndex: minFrac > 0.5 ? 4 : 3 }}
           min={limit.min}
           max={limit.max}
           value={range.min}
@@ -69,7 +96,7 @@ function MacroRow({ macroKey, range, onChange }) {
         <input
           type="range"
           className={`range-thumb ${unset ? "is-unset" : ""}`}
-          style={{ zIndex: 4 }}
+          style={{ zIndex: minFrac > 0.5 ? 3 : 4 }}
           min={limit.min}
           max={limit.max}
           value={range.max}
