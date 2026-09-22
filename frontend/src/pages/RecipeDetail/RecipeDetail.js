@@ -4,6 +4,7 @@ import { useLocation, useNavigate, Link } from "react-router-dom";
 import DOMPurify from "dompurify";
 import { fetchRecipeDetails } from "../../redux/slices/recipeDetailsSlice";
 import { usePantry } from "../../context/PantryContext";
+import Spinner from "../../components/Spinner";
 import { inPantry, pantryIndex, splitByPantry } from "../../lib/pantryMatch";
 
 // The four that drive the rest of the app, then the two people look for next.
@@ -26,9 +27,16 @@ const DIET_FLAGS = [
 
 function Skeleton() {
   return (
-    <main className="mx-auto max-w-6xl animate-pulse px-5 pb-16 pt-8 sm:px-10">
-      <div className="mb-6 h-4 w-28 rounded bg-line" />
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
+    <main className="mx-auto max-w-6xl px-5 pb-16 pt-8 sm:px-10">
+      {/* The spinner sits outside the pulsing block on purpose. A skeleton
+          fading in and out looks the same whether a request is still running
+          or has quietly died; something that loops says the app is alive. */}
+      <div className="mb-6 flex items-center gap-2.5 text-[13px] text-muted">
+        <Spinner size={16} label="Loading recipe" />
+        <span>Fetching the recipe…</span>
+      </div>
+
+      <div className="grid animate-pulse gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
         <div className="h-[340px] rounded-xl bg-placeholder" />
         <div className="space-y-4">
           <div className="h-9 w-4/5 rounded bg-line" />

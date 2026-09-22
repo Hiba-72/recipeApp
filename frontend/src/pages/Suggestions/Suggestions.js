@@ -11,6 +11,8 @@ import {
   targetDistance,
 } from "../../lib/nutrition";
 import RecipeCard from "../../components/RecipeCard";
+import ProgressBar from "../../components/ProgressBar";
+import Spinner from "../../components/Spinner";
 
 const SORTS = {
   target: "Closest to target",
@@ -82,12 +84,17 @@ export default function Suggestions() {
 
   return (
     <main className="pb-12">
+      <ProgressBar active={loading} />
+
       <header className="flex flex-wrap items-start justify-between gap-5 px-5 pt-8 sm:items-end sm:gap-6 sm:px-10">
         <div>
           <h1 className="mb-2 text-[28px] leading-[1.1] tracking-[-.03em] sm:text-[36px]">
             Tonight you can cook
           </h1>
-          <p className="text-sm text-muted">
+          <p className="flex items-center gap-2 text-sm text-muted">
+            {/* The bar at the top of the window is easy to miss on a phone,
+                where the header is what you're actually looking at. */}
+            {loading && <Spinner size={14} label="Loading recipes" />}
             {loading
               ? "Looking through your fridge…"
               : usingSample
