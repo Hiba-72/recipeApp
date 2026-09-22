@@ -1,0 +1,137 @@
+[
+  {
+    "category": "Produce",
+    "subcategories": [
+      {
+        "name": "Vegetables",
+        "tags": ["vegetarian", "vegan"],
+        "items": ["Tomato", "Onion", "Red Onion", "Spring Onion", "Garlic", "Carrot", "Potato", "Bell Pepper", "Chili Pepper", "Broccoli", "Spinach", "Zucchini", "Mushroom", "Cucumber", "Eggplant", "Cauliflower", "Celery", "Green Beans", "Sweet Potato", "Turnip", "Pumpkin", "Butternut Squash", "Cabbage", "Okra", "Beetroot", "Fennel", "Artichoke", "Peas", "Leek", "Radish", "Corn", "Asparagus", "Kale", "Lettuce"]
+      },
+      {
+        "name": "Fruits",
+        "tags": ["vegetarian", "vegan"],
+        "items": ["Lemon", "Lime", "Apple", "Banana", "Orange", "Clementine", "Grapefruit", "Avocado", "Strawberry", "Blueberry", "Raspberry", "Mango", "Pineapple", "Pear", "Grapes", "Pomegranate", "Quince", "Fig", "Peach", "Apricot", "Plum", "Cherry", "Watermelon", "Cantaloupe", "Kiwi"]
+      },
+      {
+        "name": "Herbs",
+        "tags": ["vegetarian", "vegan"],
+        "items": ["Basil", "Parsley", "Cilantro", "Mint", "Rosemary", "Thyme", "Dill", "Oregano", "Sage", "Chives", "Tarragon", "Marjoram", "Bay Leaf"]
+      }
+    ]
+  },
+  {
+    "category": "Protein",
+    "subcategories": [
+      {
+        "name": "Meat",
+        "tags": [],
+        "items": ["Chicken Breast", "Chicken Thigh", "Whole Chicken", "Chicken Wings", "Chicken Drumstick", "Ground Beef", "Steak", "Beef Shank", "Pork Chop", "Bacon", "Lamb", "Lamb Shoulder", "Ground Lamb", "Merguez", "Sausage", "Chorizo", "Turkey", "Ground Turkey", "Veal", "Duck", "Ham", "Liver"]
+      },
+      {
+        "name": "Seafood",
+        "tags": [],
+        "items": ["Salmon", "Tuna", "Shrimp", "Cod", "Tilapia", "Mussels", "Crab", "Squid", "Sardines", "Anchovies", "Sea Bass", "Mackerel", "Sole", "Octopus", "Clams", "Scallops"]
+      },
+      {
+        "name": "Plant Protein",
+        "tags": ["vegetarian", "vegan"],
+        "items": ["Tofu", "Tempeh", "Chickpeas", "Black Beans", "Lentils", "Kidney Beans", "White Beans", "Fava Beans", "Butter Beans", "Split Peas", "Edamame", "Peanut Butter", "Seitan", "Hummus"]
+      }
+    ]
+  },
+  {
+    "category": "Dairy & Eggs",
+    "subcategories": [
+      {
+        "name": "Dairy",
+        "tags": ["vegetarian"],
+        "items": ["Milk", "Butter", "Ghee", "Heavy Cream", "Yogurt", "Greek Yogurt", "Sour Cream", "Cream Cheese", "Buttermilk", "Kefir", "Labneh", "Evaporated Milk", "Condensed Milk"]
+      },
+      {
+        "name": "Cheese",
+        "tags": ["vegetarian"],
+        "items": ["Cheddar", "Mozzarella", "Parmesan", "Feta", "Goat Cheese", "Ricotta", "Gruyere", "Halloumi", "Swiss Cheese", "Blue Cheese", "Brie", "Cottage Cheese", "Mascarpone"]
+      },
+      {
+        "name": "Eggs",
+        "tags": ["vegetarian"],
+        "items": ["Eggs", "Egg Whites", "Quail Eggs"]
+      }
+    ]
+  },
+  {
+    "category": "Pantry",
+    "subcategories": [
+      {
+        "name": "Grains & Pasta",
+        "tags": ["vegetarian", "vegan"],
+        "items": ["Rice", "Basmati Rice", "Brown Rice", "Pasta", "Spaghetti", "Macaroni", "Penne", "Vermicelli", "Noodles", "Couscous", "Quinoa", "Bulgur", "Barley", "Semolina", "Oats", "Bread", "Pita Bread", "Baguette", "Tortilla", "Flour", "Whole Wheat Flour", "Cornmeal", "Breadcrumbs", "Phyllo Dough", "Puff Pastry"]
+      },
+      {
+        "name": "Oils & Vinegars",
+        "tags": ["vegetarian", "vegan"],
+        "items": ["Olive Oil", "Vegetable Oil", "Sunflower Oil", "Sesame Oil", "Coconut Oil", "Balsamic Vinegar", "White Vinegar", "Apple Cider Vinegar", "Red Wine Vinegar", "Rice Vinegar"]
+      },
+      {
+        "name": "Canned & Jarred",
+        "tags": ["vegetarian"],
+        "items": ["Canned Tomatoes", "Tomato Paste", "Coconut Milk", "Olives", "Capers", "Pickles", "Sun Dried Tomatoes", "Roasted Red Peppers", "Artichoke Hearts", "Canned Tuna", "Canned Corn", "Chicken Stock", "Beef Stock", "Vegetable Stock", "Jam"]
+      },
+      {
+        "name": "Dried Fruit",
+        "tags": ["vegetarian", "vegan"],
+        "items": ["Dates", "Raisins", "Dried Apricots", "Prunes", "Dried Figs", "Dried Cranberries"]
+      },
+      {
+        "name": "Baking",
+        "tags": ["vegetarian"],
+        "items": ["Sugar", "Brown Sugar", "Powdered Sugar", "Baking Powder", "Baking Soda", "Yeast", "Cornstarch", "Vanilla Extract", "Cocoa Powder", "Dark Chocolate", "Chocolate Chips", "Almond Flour", "Honey", "Maple Syrup", "Molasses"]
+      }
+    ]
+  },
+  {
+    "category": "Spices & Condiments",
+    "subcategories": [
+      {
+        "name": "Spices",
+        "tags": ["vegetarian", "vegan"],
+        "items": ["Salt", "Black Pepper", "White Pepper", "Paprika", "Smoked Paprika", "Cumin", "Coriander", "Turmeric", "Cinnamon", "Chili Flakes", "Cayenne Pepper", "Curry Powder", "Nutmeg", "Cardamom", "Ginger", "Cloves", "Allspice", "Star Anise", "Sumac", "Za'atar", "Fennel Seeds", "Mustard Seeds", "Garlic Powder", "Onion Powder", "Italian Seasoning"]
+      },
+      {
+        "name": "Condiments",
+        "tags": ["vegetarian"],
+        "items": ["Soy Sauce", "Mustard", "Ketchup", "Mayonnaise", "Hot Sauce", "Sriracha", "Worcestershire Sauce", "Fish Sauce", "Oyster Sauce", "Teriyaki Sauce", "BBQ Sauce", "Pesto", "Salsa", "Tahini"]
+      }
+    ]
+  },
+  {
+    "category": "Moroccan Kitchen",
+    "subcategories": [
+      {
+        "name": "Moroccan Staples",
+        "tags": ["vegetarian"],
+        "items": ["Preserved Lemon", "Harissa", "Ras El Hanout", "Argan Oil", "Smen", "Orange Blossom Water", "Rose Water", "Green Olives", "Black Olives"]
+      },
+      {
+        "name": "Moroccan Spices & Tea",
+        "tags": ["vegetarian", "vegan"],
+        "items": ["Saffron", "Caraway Seeds", "Anise Seeds", "Fenugreek", "Green Tea", "Dried Mint", "Ginger Powder"]
+      }
+    ]
+  },
+  {
+    "category": "Nuts & Seeds",
+    "subcategories": [
+      {
+        "name": "Nuts",
+        "tags": ["vegetarian", "vegan"],
+        "items": ["Almonds", "Blanched Almonds", "Walnuts", "Cashews", "Pecans", "Pistachios", "Hazelnuts", "Pine Nuts", "Peanuts", "Chestnuts"]
+      },
+      {
+        "name": "Seeds",
+        "tags": ["vegetarian", "vegan"],
+        "items": ["Sesame Seeds", "Sunflower Seeds", "Chia Seeds", "Flax Seeds", "Pumpkin Seeds", "Poppy Seeds", "Nigella Seeds", "Hemp Seeds"]
+      }
+    ]
+  }
+]

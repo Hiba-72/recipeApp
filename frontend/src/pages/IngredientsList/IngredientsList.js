@@ -1,7 +1,6 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useMemo, useState } from "react";
+import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { fetchIngredients } from "../../redux/slices/ingredientsSlice";
 import { usePantry } from "../../context/PantryContext";
 import IngredientSearch from "../../components/IngredientSearch";
 import Logo from "../../components/Logo";
@@ -17,16 +16,13 @@ import Logo from "../../components/Logo";
  * make a five-ingredient edit into five round trips.
  */
 export default function IngredientsList() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const onboarding = pathname === "/welcome";
 
-  const {
-    categories,
-    loading: catalogueLoading,
-    error: catalogueError,
-  } = useSelector((state) => state.ingredients);
+  // The catalogue ships in the bundle, so it is present on first render:
+  // there is no loading state and no way for it to fail.
+  const { categories } = useSelector((state) => state.ingredients);
 
   const {
     draftPantry,
@@ -41,10 +37,6 @@ export default function IngredientsList() {
 
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState(null);
-
-  useEffect(() => {
-    dispatch(fetchIngredients());
-  }, [dispatch]);
 
   const selected = useMemo(
     () => new Set(draftPantry.map((n) => n.toLowerCase())),
@@ -124,38 +116,9 @@ export default function IngredientsList() {
         </div>
       )}
 
-      {catalogueLoading && (
-        <div className="space-y-7">
-          {[0, 1].map((i) => (
-            <div key={i}>
-              <div className="mb-3.5 h-5 w-40 animate-pulse rounded bg-line" />
-              <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 xl:grid-cols-4">
-                {Array.from({ length: 8 }).map((_, j) => (
-                  <div
-                    key={j}
-                    className="h-[46px] animate-pulse rounded-lg bg-line/70"
-                  />
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
 
-      {catalogueError && !catalogueLoading && (
-        <div className="rounded-xl border border-need-line bg-need-bg px-[22px] py-5">
-          <h2 className="mb-1 text-[17px] text-need">
-            The ingredient list didn't load
-          </h2>
-          <p className="text-[13px] leading-relaxed text-need-soft">
-            Taktouka's own server is what serves the catalogue, so it's probably
-            not running. You can still add ingredients with the search box above
-            — that goes straight to the recipe service.
-          </p>
-        </div>
-      )}
 
-      {!catalogueLoading && !catalogueError && visible.length === 0 && (
+      {visible.length === 0 && (
         <p className="text-sm text-muted">
           Nothing in the catalogue matches “{search}”. The search box above can
           still add it.

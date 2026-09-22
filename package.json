@@ -1,17 +1,14 @@
 {
   "name": "taktouka",
   "version": "1.0.0",
-  "main": "index.js",
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "concurrently \"npm run api\" \"npm run client\"",
     "client": "npm start --prefix frontend",
-    "server": "node backend/server.js",
+    "api": "npm run dev --prefix worker",
     "test": "npm test --prefix frontend -- --watchAll=false",
-    "seed": "npm run seed --prefix backend",
-    "db": "docker compose up -d",
-    "install:all": "npm install && npm install --prefix backend && npm install --prefix frontend",
-    "build": "npm run install:all && npm run build --prefix frontend",
-    "serve": "node backend/server.js"
+    "install:all": "npm install && npm install --prefix worker && npm install --prefix frontend",
+    "build": "npm run build --prefix frontend",
+    "deploy": "npm run deploy --prefix worker"
   },
   "keywords": [
     "recipes",
