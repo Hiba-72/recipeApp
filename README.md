@@ -6,7 +6,9 @@ Most recipe sites start from the dish and leave you to go shopping. Taktouka sta
 from your ingredients: save your fridge once, set a macro target if you want one, and
 every visit opens on recipes ranked by how little you're missing.
 
-> **Live demo:** _add your URL here_ · **Walkthrough:** _add your GIF here_
+> **[Live demo →](https://recipeapp-q3sh.onrender.com)** · Hosted on a free instance,
+> so the first load after an idle spell takes ~50s to wake. Everything after that is
+> instant.
 
 ## What it does
 
