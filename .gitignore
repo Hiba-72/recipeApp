@@ -38,3 +38,11 @@ Thumbs.db
 # Editor and tooling scratch
 *.log
 logs/
+
+# Cloudflare Workers.
+# .dev.vars is what `wrangler dev` reads for local secrets — it holds the
+# Spoonacular key and is NOT matched by the .env* rules above, which is easy
+# to miss. Deployed secrets live in `wrangler secret put`, never in the repo.
+.dev.vars
+!.dev.vars.example
+.wrangler/

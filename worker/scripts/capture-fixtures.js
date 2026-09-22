@@ -2,20 +2,34 @@
  * Captures a small set of real Spoonacular responses to disk, for the app to
  * fall back on when the daily allowance runs out.
  *
- * Run it rarely — it spends quota. `npm run capture-fixtures` from backend/.
+ * Run it rarely — it spends quota. `npm run capture-fixtures` from worker/.
+ *
+ * Writes into src/data/, which the Worker imports directly: a Worker has no
+ * filesystem, so the fallback data has to be bundled rather than read at
+ * runtime. That is also why the twelve recipe details land in one keyed
+ * recipes.json rather than twelve separate files — one import, instead of a
+ * directory listing that would not exist at the edge.
  *
  * The point is that a visitor arriving on a day the budget is already gone
  * still sees a working app instead of an error, so what lands here has to be
  * genuine API output: same shape, same fields, nothing hand-written.
  */
-require('dotenv').config({ quiet: true });
-
 const fs = require('fs');
 const path = require('path');
 
+// The key lives in worker/.dev.vars (gitignored) — the same file `wrangler dev`
+// reads, so there is one local secret rather than one per tool.
+const DEV_VARS = path.join(__dirname, '..', '.dev.vars');
+if (fs.existsSync(DEV_VARS)) {
+  for (const line of fs.readFileSync(DEV_VARS, 'utf8').split(/\r?\n/)) {
+    const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*?)\s*$/);
+    if (m && !process.env[m[1]]) process.env[m[1]] = m[2];
+  }
+}
+
 const API_KEY = process.env.SPOONACULAR_API_KEY;
 const BASE = 'https://api.spoonacular.com';
-const OUT = path.join(__dirname, '..', 'fixtures');
+const OUT = path.join(__dirname, '..', 'src', 'data');
 
 // A deliberately ordinary fridge. The sample should look like something a
 // person actually owns, because it is the first thing a visitor sees when the
@@ -124,7 +138,7 @@ async function main() {
     process.exit(1);
   }
 
-  fs.mkdirSync(path.join(OUT, 'recipes'), { recursive: true });
+  fs.mkdirSync(OUT, { recursive: true });
 
   const params = new URLSearchParams({
     fillIngredients: 'true',
@@ -153,24 +167,22 @@ async function main() {
   console.log(`  search.json — ${results.length} recipes`);
 
   // Every card in the sample has to be clickable, so each one needs its detail
-  // response captured too.
+  // response captured too. Keyed by id into a single file, because a keyed
+  // object is what the Worker can import — it cannot read a directory.
+  const details = {};
   for (const recipe of results) {
     const detail = await get(
       `${BASE}/recipes/${recipe.id}/information?includeNutrition=true&apiKey=${API_KEY}`
     );
-    fs.writeFileSync(
-      path.join(OUT, 'recipes', `${recipe.id}.json`),
-      JSON.stringify(slimDetail(detail), null, 2)
-    );
-    console.log(`  recipes/${recipe.id}.json — ${detail.title}`);
+    details[String(recipe.id)] = slimDetail(detail);
+    console.log(`  ${recipe.id} — ${detail.title}`);
   }
+  fs.writeFileSync(path.join(OUT, 'recipes.json'), JSON.stringify(details));
+  console.log(`  recipes.json — ${Object.keys(details).length} details`);
 
-  const bytes = fs
-    .readdirSync(path.join(OUT, 'recipes'))
-    .reduce(
-      (total, f) => total + fs.statSync(path.join(OUT, 'recipes', f)).size,
-      fs.statSync(path.join(OUT, 'search.json')).size
-    );
+  const bytes =
+    fs.statSync(path.join(OUT, 'recipes.json')).size +
+    fs.statSync(path.join(OUT, 'search.json')).size;
   console.log(`\nCaptured ${results.length} recipes, ${(bytes / 1024).toFixed(0)} KB total.`);
 }
 

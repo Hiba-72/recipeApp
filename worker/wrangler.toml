@@ -1,0 +1,35 @@
+# Taktouka's API on Cloudflare Workers.
+#
+# Replaces a Render free-tier web service whose whole container spun down after
+# 15 minutes idle and took ~50s to cold-boot. A Worker has no container, so the
+# first request after a quiet hour is as fast as any other.
+name = "taktouka-api"
+main = "src/index.js"
+compatibility_date = "2024-12-01"
+
+# Gives the Worker the standard Node globals Hono expects. Nothing here needs
+# the filesystem or net modules — the fixtures and the catalogue are bundled
+# JSON imports, which is why the port was possible at all.
+compatibility_flags = ["nodejs_compat"]
+
+[observability]
+enabled = true
+
+# ── Configuration ──────────────────────────────────────────────────────────
+#
+# SPOONACULAR_API_KEY is a SECRET and must never appear in this file. Set it
+# once per environment with:
+#
+#     npx wrangler secret put SPOONACULAR_API_KEY
+#
+# For local `wrangler dev`, put it in worker/.dev.vars instead — that file is
+# gitignored and never deployed.
+[vars]
+# Browser origins allowed to call this API, comma separated. An empty list
+# denies every origin, which is the safe default for a half-finished deploy.
+# Replace with the Pages URL once it exists, plus any custom domain.
+ALLOWED_ORIGINS = "http://localhost:3001"
+
+# Force the bundled offline sample instead of live API calls. Useful for
+# seeing exactly what a visitor gets once the daily allowance runs out.
+USE_FIXTURES = "false"

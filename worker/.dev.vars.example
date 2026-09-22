@@ -1,0 +1,3 @@
+# Local-only secrets for `wrangler dev`. Copy to .dev.vars and fill in.
+# .dev.vars is gitignored and is never uploaded by `wrangler deploy`.
+SPOONACULAR_API_KEY=your_key_here

@@ -1,0 +1,18 @@
+{
+  "name": "taktouka-worker",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "tail": "wrangler tail",
+    "capture-fixtures": "node scripts/capture-fixtures.js"
+  },
+  "dependencies": {
+    "hono": "^4.6.14"
+  },
+  "devDependencies": {
+    "wrangler": "^3.99.0"
+  }
+}
