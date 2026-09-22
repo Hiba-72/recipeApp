@@ -119,7 +119,7 @@ export default function IngredientSearch({
         <div
           id="ingredient-matches"
           role="listbox"
-          className="absolute left-0 right-0 top-[52px] z-20 overflow-hidden rounded-[10px] border border-line-strong bg-surface shadow-[0_10px_28px_rgba(61,27,44,.14)]"
+          className="absolute left-0 right-0 top-[52px] z-20 overflow-hidden rounded-[10px] border border-line-strong bg-surface shadow-[0_10px_28px_rgba(35,32,29,.14)]"
         >
           <div className="border-b border-line px-4 py-2.5 text-[10px] font-semibold uppercase tracking-[.12em] text-faint">
             {loading ? "Looking…" : "Matched in the catalogue"}
