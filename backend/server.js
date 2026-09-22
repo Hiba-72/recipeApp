@@ -1,6 +1,16 @@
 // Must run before anything reads process.env — spoonacular.js picks up the API
 // key at require time.
-require('dotenv').config({ quiet: true });
+//
+// The path is pinned to this directory rather than left to default. dotenv
+// resolves a bare .env against process.cwd(), but every npm script here runs
+// `node backend/server.js` from the repo root, so the default looked for
+// ../.env, silently found nothing, and the server came up with no API key —
+// /api/health reported "missing api key". It never surfaced in production
+// because Render injects env vars into the process directly.
+require('dotenv').config({
+  path: require('path').join(__dirname, '.env'),
+  quiet: true,
+});
 
 const express = require('express');
 const mongoose = require('mongoose');
