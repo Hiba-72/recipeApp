@@ -28,7 +28,7 @@ enabled = true
 # Browser origins allowed to call this API, comma separated. An empty list
 # denies every origin, which is the safe default for a half-finished deploy.
 # Replace with the Pages URL once it exists, plus any custom domain.
-ALLOWED_ORIGINS = "http://localhost:3001"
+ALLOWED_ORIGINS = "http://localhost:3001,https://taktouka.pages.dev"
 
 # Force the bundled offline sample instead of live API calls. Useful for
 # seeing exactly what a visitor gets once the daily allowance runs out.

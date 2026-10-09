@@ -41,6 +41,26 @@ const app = new Hono();
  * API stops answering the frontend loudly, rather than answering everyone
  * quietly.
  */
+function isAllowedOrigin(origin, allowed) {
+  if (allowed.includes(origin)) return true;
+
+  // Pages gives every deployment its own https://<hash>.<project>.pages.dev
+  // URL alongside the stable one. Those hashes change on every push, so an
+  // exact-match list can never contain them and every preview deploy would
+  // fail CORS while looking identical to production.
+  //
+  // Deliberately narrow: this expansion applies only to a *.pages.dev host
+  // already on the allowlist. Allowing subdomains of an arbitrary allowed
+  // origin would be a real hole -- anyone who got hold of a subdomain of it
+  // would inherit API access -- but a subdomain of our own pages.dev project
+  // can only be another deployment of this same project.
+  return allowed.some((entry) => {
+    if (!entry.endsWith('.pages.dev')) return false;
+    const host = entry.replace(/^https:\/\//, '');
+    return origin === `https://${host}` || origin.endsWith(`.${host}`);
+  });
+}
+
 app.use('/api/*', async (c, next) => {
   const allowed = String(c.env.ALLOWED_ORIGINS || '')
     .split(',')
@@ -48,7 +68,7 @@ app.use('/api/*', async (c, next) => {
     .filter(Boolean);
 
   return cors({
-    origin: (origin) => (allowed.includes(origin) ? origin : null),
+    origin: (origin) => (isAllowedOrigin(origin, allowed) ? origin : null),
     allowMethods: ['GET', 'OPTIONS'],
   })(c, next);
 });

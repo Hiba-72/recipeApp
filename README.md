@@ -6,11 +6,13 @@ Most recipe sites start from the dish and leave you to go shopping. Taktouka sta
 from your ingredients: save your fridge once, set a macro target if you want one, and
 every visit opens on recipes ranked by how little you're missing.
 
-> **Live demo:** _add the Cloudflare Pages URL here after the first deploy._
+> **[Live demo →](https://taktouka.pages.dev)**
 >
-> The old Render URL still serves the previous single-service build, where the whole
-> container slept after 15 minutes and the first load took ~50s. That is the problem
-> the Pages + Workers split removes; see [Deploying](#deploying).
+> Static frontend on Cloudflare Pages, API on a Worker. Nothing sleeps: the page is
+> served from a CDN and the Worker starts in about 20 ms. The previous deploy put
+> both halves in one container on a free tier that span down after 15 minutes idle,
+> so the first page load after a quiet hour measured **42 seconds** — before any
+> JavaScript existed to show that anything was happening.
 
 ## What it does
 
@@ -150,7 +152,8 @@ npx wrangler secret put SPOONACULAR_API_KEY   # prompts; never written to disk
 npx wrangler deploy
 ```
 
-Note the URL it prints — that's `REACT_APP_API_URL`.
+Note the URL it prints — that's `REACT_APP_API_URL`. For this project it is
+`https://taktouka-api.hiba-elfachtali.workers.dev`.
 
 **2. The frontend (Pages)**
 
@@ -168,6 +171,13 @@ Put the Pages URL into `ALLOWED_ORIGINS` in `worker/wrangler.toml` and redeploy 
 Worker. Until you do, the browser will be refused by CORS — deliberately: an empty
 allowlist denies every origin, so a half-finished deploy fails loudly instead of
 answering everyone quietly.
+
+Use the **stable** Pages URL (`https://taktouka.pages.dev`), not the per-deployment
+one with a hash in front of it — that hash changes on every push. Preview deployments
+still work: the Worker accepts any subdomain of a `.pages.dev` host on the allowlist,
+which covers `https://<hash>.taktouka.pages.dev` without listing each one. That
+expansion is restricted to `.pages.dev` entries on purpose; doing it for arbitrary
+origins would hand API access to anyone holding a subdomain of them.
 
 **4. Add a rate limit**
 
