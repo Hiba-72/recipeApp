@@ -46,3 +46,6 @@ logs/
 .dev.vars
 !.dev.vars.example
 .wrangler/
+
+# Scratch commit-message files.
+.msg.tmp
