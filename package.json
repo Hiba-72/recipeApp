@@ -7,20 +7,19 @@
     "api": "npm run dev --prefix worker",
     "test": "npm test --prefix frontend -- --watchAll=false",
     "install:all": "npm install && npm install --prefix worker && npm install --prefix frontend",
-    "build": "npm run build --prefix frontend",
+    "build": "npm install --prefix frontend && npm run build --prefix frontend",
     "deploy": "npm run deploy --prefix worker"
   },
   "keywords": [
     "recipes",
     "react",
-    "express",
-    "mongodb",
+    "cloudflare-workers",
     "spoonacular",
     "meal-planning"
   ],
   "author": "Hiba El Fachtali",
   "license": "MIT",
-  "description": "Tells you what you can cook tonight, from what is already in your fridge. React + Express + MongoDB, with a quota-aware Spoonacular proxy.",
+  "description": "Tells you what you can cook tonight, from what is already in your fridge. React on Cloudflare Pages, with a quota-aware Spoonacular proxy on Workers.",
   "dependencies": {
     "concurrently": "^9.1.0"
   },
