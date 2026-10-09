@@ -57,10 +57,24 @@ export const fetchRecipes = createAsyncThunk(
     } catch (error) {
       // 402 is the daily quota, and it's the one a visitor is most likely to
       // hit. The server phrases it; we just don't overwrite it.
-      return rejectWithValue(
-        error.response?.data?.message ||
-          'Could not reach the recipe service. Is the Taktouka server running?'
-      );
+      if (error.response?.data?.message) {
+        return rejectWithValue(error.response.data.message);
+      }
+
+      // No response at all: wrong URL, CORS, or nothing listening. In
+      // development, name the address actually being called — a stale
+      // REACT_APP_API_URL in frontend/.env silently overrides the default and
+      // points the app at a server that no longer exists, which is invisible
+      // from a message that only says "could not reach".
+      if (process.env.NODE_ENV === 'development') {
+        return rejectWithValue(
+          `Could not reach the recipe service at ${
+            API_BASE_URL || 'this origin'
+          }. Is the Worker running on that address? Check REACT_APP_API_URL in frontend/.env.`
+        );
+      }
+
+      return rejectWithValue('Could not reach the recipe service.');
     }
   }
 );
