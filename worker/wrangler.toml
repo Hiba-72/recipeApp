@@ -15,6 +15,33 @@ compatibility_flags = ["nodejs_compat"]
 [observability]
 enabled = true
 
+# ── Rate limiting ──────────────────────────────────────────────────────────
+#
+# The recipe allowance is a shared, exhaustible daily budget: one script
+# hammering search burns it for every visitor. Express guarded this with
+# express-rate-limit, which keeps counters in process memory — something a
+# Worker does not have, since isolates are created and discarded freely.
+#
+# This is NOT the same thing as a WAF rate limiting rule. Those are scoped to
+# a zone, meaning a domain you have added to Cloudflare; this Worker answers on
+# *.workers.dev, which is Cloudflare's zone rather than ours, so there is no
+# zone to attach a rule to. A custom domain would allow that route; this
+# binding works without one.
+#
+# `period` accepts only 10 or 60 seconds. The old limit was 60 requests per 15
+# minutes, i.e. 4/minute sustained; 20 per minute leaves ordinary browsing
+# untouched while still stopping a loop.
+# First-class [[ratelimits]], not [[unsafe.bindings]]. Under wrangler 3 the
+# only way to declare this was the unsafe passthrough, which uploaded as
+# "Unsafe Metadata" and produced a binding that existed, accepted calls, and
+# returned success for every one of them — 60 requests a minute against a
+# limit of 20, all allowed. A limiter that fails open is indistinguishable
+# from a working one from outside, which is why /api/health reports it.
+[[ratelimits]]
+name = "RATE_LIMITER"
+namespace_id = "1001"
+simple = { limit = 10, period = 60 }
+
 # ── Configuration ──────────────────────────────────────────────────────────
 #
 # SPOONACULAR_API_KEY is a SECRET and must never appear in this file. Set it

@@ -47,5 +47,8 @@ logs/
 !.dev.vars.example
 .wrangler/
 
-# Scratch commit-message files.
+# Scratch commit-message buffers. Broad on purpose: a narrow rule only
+# covered .msg.tmp and the next one was called .cmsg.
 .msg.tmp
+.cmsg
+*.commitmsg

@@ -179,18 +179,39 @@ which covers `https://<hash>.taktouka.pages.dev` without listing each one. That
 expansion is restricted to `.pages.dev` entries on purpose; doing it for arbitrary
 origins would hand API access to anyone holding a subdomain of them.
 
-**4. Add a rate limit**
+**4. Rate limiting — configured in code, nothing to click**
 
-The Express version capped `/api/recipes` at 60 requests per 15 minutes, because the
-recipe allowance is a shared daily budget and one script hammering search burns it for
-everyone. That used in-process counters, which a Worker does not have — isolates come
-and go, so every request could see a fresh counter, and porting it would have produced
-something that looked like protection and wasn't.
+The recipe allowance is a shared daily budget, so a loop over search burns it for
+every visitor afterwards. Express guarded this with `express-rate-limit`, which keeps
+counters in process memory — something a Worker does not have, since isolates are
+created and discarded freely.
 
-The replacement belongs in Cloudflare, not in the code: **Security → WAF → Rate
-limiting rules**, on the Worker's route. It runs before the Worker is invoked. Until
-that rule exists, the edge cache is the only thing between a public URL and an
-exhausted allowance.
+It is enforced instead by a `[[ratelimits]]` binding in `wrangler.toml`: 10 requests
+per minute per IP, on `/api/recipes/*` and the autocomplete endpoint. It runs before
+the cache and before any upstream call, so a rejected request costs nothing.
+`/api/health` is exempt, and `/api/health` reports whether the binding is actually
+live — a limiter that fails open looks identical to a working one from outside.
+
+This is **not** a WAF rate limiting rule. Those are scoped to a zone, meaning a domain
+added to your Cloudflare account; this Worker answers on `*.workers.dev`, which is
+Cloudflare's zone and not yours, so there is no zone to attach one to.
+
+Requires **wrangler 4**. Under wrangler 3 the only way to declare this was
+`[[unsafe.bindings]]`, which uploads as "Unsafe Metadata" and produces a binding that
+exists, accepts calls, and returns success for every one — 60 requests a minute
+against a limit of 20, all allowed.
+
+What it does and does not buy: a free Spoonacular plan is 150 points a day and a
+search with nutrition costs about 3.9, so the entire daily budget is roughly 38
+searches. No per-IP limit can protect that — ten a minute from one address would
+exhaust it in four minutes. What this stops is the accidental case: a scraper, a stuck
+retry, a loop. Measured on the deployed Worker, 40 parallel requests saw 8 rejected,
+while 20 sequential ones saw none; Cloudflare's counters are per-location and
+best-effort, so the cutoff is a region rather than a cliff. That shape is the right
+one here — bursts get trimmed, ordinary browsing never notices.
+
+The edge cache is what genuinely stretches the budget, and the bundled fixtures are
+what make exhaustion survivable rather than fatal.
 
 ## Notes on the implementation
 

@@ -74,6 +74,45 @@ app.use('/api/*', async (c, next) => {
 });
 
 /**
+ * Per-IP rate limit on the endpoints that can spend Spoonacular quota.
+ *
+ * The allowance is a shared daily budget, so one script looping over search
+ * burns it for everyone who visits afterwards. Express enforced this with
+ * express-rate-limit; that keeps counters in process memory, which a Worker
+ * does not have, so the limit is enforced by a Cloudflare binding instead.
+ *
+ * Deliberately mounted before the cache and before any upstream call: a
+ * rejected request must cost nothing, or the limiter becomes a way to spend
+ * the budget rather than protect it.
+ *
+ * Fails open. If the binding is missing — an older deploy, or `wrangler dev`
+ * without it configured — the app keeps working unthrottled rather than
+ * refusing every request. Losing the limit degrades the quota; losing the API
+ * breaks the site, and of the two this is the recoverable one.
+ */
+app.use('/api/recipes/*', rateLimit);
+app.use('/api/ingredients/autocomplete', rateLimit);
+
+async function rateLimit(c, next) {
+  const limiter = c.env.RATE_LIMITER;
+  if (!limiter?.limit) return next();
+
+  // CF-Connecting-IP is set by Cloudflare's edge and cannot be spoofed by the
+  // client, unlike X-Forwarded-For. The fallback keyes everyone together,
+  // which is wrong but still bounded — it only applies where the header is
+  // absent, which in production it never is.
+  const key = c.req.header('CF-Connecting-IP') || 'unknown';
+
+  const { success } = await limiter.limit({ key });
+  if (success) return next();
+
+  return c.json(
+    { message: 'Too many recipe searches. Try again in a minute.' },
+    429
+  );
+}
+
+/**
  * Cloudflare's edge cache, standing in for the old in-process Map.
  *
  * A Worker has no long-lived process to hang a Map off — isolates are created
@@ -128,6 +167,11 @@ app.get('/api/health', (c) =>
     ok: true,
     runtime: 'cloudflare-worker',
     recipes: c.env.SPOONACULAR_API_KEY ? 'configured' : 'missing api key',
+    // The limiter fails open, so an absent binding looks exactly like a
+    // working one from outside: every request succeeds. Reporting it here is
+    // the only way to tell "protected" from "silently unprotected".
+    rateLimit:
+      typeof c.env.RATE_LIMITER?.limit === 'function' ? 'active' : 'MISSING',
     // A deploy with no fixtures has no safety net once the daily budget goes.
     sample: fixtures.available() ? `${fixtures.count} recipes` : 'none',
   })
@@ -271,21 +315,33 @@ app.onError((err, c) => {
 export default app;
 
 /*
- * WHAT IS NOT HERE: rate limiting.
+ * On rate limiting, and why it is not a WAF rule.
  *
- * The Express version used express-rate-limit to cap /api/recipes and the
- * autocomplete endpoint at 60 requests per 15 minutes, because the recipe
- * allowance is a shared, exhaustible daily budget and one script hammering
- * search burns it for everyone.
+ * The obvious answer on Cloudflare is a WAF Rate Limiting Rule, and it is the
+ * wrong one here. Those are scoped to a zone — a domain added to your own
+ * Cloudflare account. This Worker answers on *.workers.dev, which belongs to
+ * Cloudflare rather than to us, so there is no zone to hang a rule on. Putting
+ * the Worker behind a custom domain would open that route; the binding used in
+ * `rateLimit` above needs no domain and is enforced in the request path.
  *
- * That package keeps its counters in process memory, which a Worker does not
- * have — isolates come and go, so every request could see a fresh, empty
- * counter. Porting it as-is would have produced something that looked like
- * protection and wasn't, which is worse than none.
+ * On the number: 10/minute per IP, where Express allowed 60 per 15 minutes
+ * (4/minute sustained). `period` accepts only 10 or 60 seconds, so a direct
+ * translation was not available.
  *
- * The replacement belongs in Cloudflare rather than in this file: add a Rate
- * Limiting Rule on the Worker's route in the dashboard (Security -> WAF ->
- * Rate limiting rules). It runs before the Worker is even invoked, so it also
- * costs nothing when it fires. Until that rule exists, the edge cache above is
- * the only thing between a public URL and an empty allowance.
+ * Be clear about what this does and does not buy. A free Spoonacular plan is
+ * 150 points a day and a search with nutrition costs roughly 3.9, so the whole
+ * daily budget is about 38 searches. No per-IP limit can protect that: ten
+ * requests a minute from a single address would exhaust it in four minutes,
+ * and a handful of addresses could do it faster. What the limit actually stops
+ * is the accidental case — a loop, a scraper, a stuck retry — while leaving
+ * normal browsing untouched, since a person makes about one search per page.
+ *
+ * The edge cache above is what genuinely stretches the budget: two visitors
+ * with similar fridges share one upstream call. The fixtures are what makes
+ * exhaustion survivable rather than fatal.
+ *
+ * Cloudflare's limiter is also approximate rather than exact — counters are
+ * per-location and best-effort, so the cutoff is a region, not a cliff. That
+ * is fine for this purpose and worth knowing before anyone tests it and finds
+ * the Nth request still passing.
  */
